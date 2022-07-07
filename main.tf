@@ -48,8 +48,8 @@ module "blackberrysecretmanager" {
 module "blackberryterraform" {
     #source                      = "../modules/blackberry_infra"
     for_each = {for key, val in local.expanded_names: key => val}
-    source                      = "git@github.com:rameshnakka778/githubworkflowterraform.git//packages/modules/blackberry_infra/gluejobdeployment"
-    
+    #source                      = "git@github.com:rameshnakka778/githubworkflowterraform.git//packages/modules/blackberry_infra/gluejobdeployment"
+    source              ="https://github.com/rameshnakka778/githubworkflowterraform.git//packages/modules/blackberry_infra/gluejobdeployment?ref=main"
     s3_file_path                = "scripts/${each.value.File_name}"
     bucket_name                 = each.value.Bucket_name
     file_name                   = each.value.File_name
