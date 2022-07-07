@@ -1,7 +1,0 @@
-account_number = "263407373860"
-environment    = "dev"
-service_name              = "blackberry_pull_request"
-#application_source_branch = ""
-repo_name                 = "blackberryterraform"
-#assignment_group          = "Group Data Banana"
-deployment_item           = "Glue jobs"
