@@ -23,7 +23,7 @@
 
 module "blackberry" {
     #source = "git@github.com:rameshnakka778/githubworkflowterraform.git//packages/modules/blackberry_infra/gluesourcecreation"
-    source ="../../modules/blackberry_infra/glueresourcecreation"
+    source ="./modules/blackberry_infra/glueresourcecreation"
     create = var.create_connection
     name = var.conn_name
     url  = var.conn_url
@@ -39,17 +39,17 @@ module "blackberry" {
 }
 module "blackberryglues3"{
     #source = "git@github.com:rameshnakka778/githubworkflowterraform.git//packages/modules/blackberry_infra/glues3"
-    source = "../../modules/blackberry_infra/glues3"
+    source = "./modules/blackberry_infra/glues3"
     upload_obj_path = var.s3_upload_obj_path
     #bucket_name_obj_upload="js-s3-aws-glue-bb"
 }
 module "blackberrysecretmanager" {
     #source = "git@github.com:rameshnakka778/githubworkflowterraform.git//packages/modules/blackberry_infra/gluesecretmanager"
-    source = "../../modules/blackberry_infra/gluesecretmanager"
+    source = "./modules/blackberry_infra/gluesecretmanager"
     secret_manager_credentials = var.aws_secret_manager_credentials
 }
 module "blackberryterraform" {
-    source                      = "../../modules/blackberry_infra/gluejobdeployment"
+    source                      = "./modules/blackberry_infra/gluejobdeployment"
     for_each = {for key, val in local.expanded_names: key => val}
     #source                      = "git@github.com:rameshnakka778/githubworkflowterraform.git//packages/modules/blackberry_infra/gluejobdeployment"
     #source              ="https://github.com/rameshnakka778/githubworkflowterraform.git//packages/modules/blackberry_infra/gluejobdeployment"
