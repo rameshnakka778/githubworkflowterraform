@@ -32,20 +32,19 @@ jobs:
         id: init
         run: |
            rm -rf .terraform
-  
            terraform init -backend-config=${{ matrix.environment }}/backend.tfvars -upgrade=true -no-color -input=false
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -input=false -var-file=${{ matrix.environment }}/variables.auto.tfvars -no-color
+          terraform plan -input=false -var-file=${{ matrix.environment }}/main.tf -no-color
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         id: apply
-        run: terraform apply -auto-approve -input=false -var-file=${{ matrix.environment }}/variables.auto.tfvars
+        run: terraform apply -auto-approve -input=false -var-file=${{ matrix.environment }}/main.tf
       - name: Terraform destroy
         if: github.ref == 'refs/heads/destroy'
         id: destroy
-        run: terraform destroy -auto-approve -input=false -var-file=${{ matrix.environment }}/variables.auto.tfvars
+        run: terraform destroy -auto-approve -input=false -var-file=${{ matrix.environment }}/main.tf
   comment:
     runs-on: ubuntu-latest
     needs: terraform
