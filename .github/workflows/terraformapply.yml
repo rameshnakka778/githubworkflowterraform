@@ -19,9 +19,9 @@ jobs:
 
     - name: Terraform init
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        GH_TOKEN: ${{secrets.GH_TOKEN}}
+        AWS_ACCESS_KEY_ID: $ {{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: $ {{ secrets.AWS_SECRET_ACCESS_KEY }}
+        GH_TOKEN: $ {{ secrets.GH_TOKEN }}
       run: terraform init -backend=true \
       	-backend-config="bucket=js-s3-aws-glue-bb" \
       	-backend-config="key=dev/blackberry_pull_request/terraform.tfstate" \
@@ -34,7 +34,7 @@ jobs:
 
     - name: Terraform apply
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        GH_TOKEN: ${{secrets.GH_TOKEN}}
+        AWS_ACCESS_KEY_ID: $ {{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: $ {{ secrets.AWS_SECRET_ACCESS_KEY }}
+        GH_TOKEN: $ {{ secrets.GH_TOKEN }}
       run: terraform apply -auto-approve -input=false
