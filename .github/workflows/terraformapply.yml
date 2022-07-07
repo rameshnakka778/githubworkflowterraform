@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-	  - name: Install Terraform
+    - name: Install Terraform
       env:
             TERRAFORM_VERSION: "0.12.15"
       run: |
