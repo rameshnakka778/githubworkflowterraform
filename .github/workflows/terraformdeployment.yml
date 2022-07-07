@@ -31,11 +31,20 @@ jobs:
       - name: Terraform Init
         id: init
         run: |
+        
+        env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         AWS_DEFAULT_REGION: eu-west-1
            rm -rf .terraform
            terraform init -backend-config=${{ matrix.environment }}/backend.tfvars -upgrade=true -no-color -input=false
       - name: Terraform Plan
         id: plan
         run: |
+        env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         AWS_DEFAULT_REGION: eu-west-1
           terraform plan -input=false -var-file=${{ matrix.environment }}/main.tf -no-color
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
