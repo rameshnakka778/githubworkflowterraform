@@ -22,8 +22,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         GH_TOKEN: ${{secrets.GH_TOKEN}}
-      run: terraform init -backend=true \-backend-config="bucket=js-s3-aws-glue-bb" \-backend-config="key=dev/blackberry_pull_request/terraform.tfstate" \-backend-config="region=eu-west-1" \
-	      -backend-config="profile =js-dpp1"
+      run: terraform init -backend=true \-backend-config="bucket=js-s3-aws-glue-bb" \-backend-config="key=dev/blackberry_pull_request/terraform.tfstate" \-backend-config="region=eu-west-1" \-backend-config="profile =js-dpp1"
       #terraform init -backend-config="access_key=ASIAYMLGKE27LG6MQ3WT" -backend-config="secret_key=vhNdGN5dY3gIXZhDtH8xedZbhXGzCzt3nIfTRsWy" -backend-config="region=eu-west-1"
       #terraform init -input=false
     - name: Terraform validation
