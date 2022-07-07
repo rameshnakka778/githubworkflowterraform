@@ -5,11 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      - run: |
-        git config --local --remove-section http."https://github.com/"
-        git config --global url."https://foo:${GH_TOKEN}@github.com/your-org".insteadOf "https://github.com/your-org"
-       env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
     - uses: actions/checkout@v1
     - name: Install Terraform
       env:
