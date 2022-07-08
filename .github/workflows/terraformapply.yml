@@ -35,7 +35,7 @@ jobs:
            terraform init -backend-config=${{ matrix.environment }}/backend.tfvars -upgrade=true -no-color -input=false
       - name: Terraform Plan
         id: plan
-        run: |
+        run:
           terraform plan -input=false -var-file=${{ matrix.environment }}/variables.tf
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
