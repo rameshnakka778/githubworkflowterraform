@@ -6,10 +6,10 @@ terraform {
     }  
   }
   backend "s3" {
-    bucket = "js-s3-aws-glue-bb"
+    bucket = "dpp-dev-raw-src-rdw/C3"
     key    = "dev/blackberry_pull_request/terraform.tfstate"
     region = "eu-west-1"
-    profile = "js-dpp1"
+    #profile = "js-dpp1"
   }
 
 
