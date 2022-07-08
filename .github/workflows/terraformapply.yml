@@ -23,7 +23,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |  
         rm -rf .terraform
-        terraform init -backend=true \-backend-config="bucket=dpp-dev-raw-src-rdw/C3" \-backend-config="key=dev/blackberry_pull_request/terraform.tfstate" \-backend-config="region=eu-west-1" 
+        terraform init -backend=true \-backend-config="bucket=dpp-dev-raw-src-rdw" \-backend-config="key=C3/dev/blackberry_pull_request/terraform.tfstate" \-backend-config="region=eu-west-1" 
       #terraform init -backend-config="access_key=ASIAYMLGKE27LG6MQ3WT" -backend-config="secret_key=vhNdGN5dY3gIXZhDtH8xedZbhXGzCzt3nIfTRsWy" -backend-config="region=eu-west-1"
       #terraform init -input=false
     - name: Terraform validation
