@@ -12,6 +12,7 @@ jobs:
           command: |
             pwd
             ls -la
+            cd packages/blackberry_pull_request/
             terraform init -input=false
             terraform plan -out tfapply -var-file main.tf
       - persist_to_workspace:
