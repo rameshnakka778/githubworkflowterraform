@@ -2,10 +2,10 @@
    type    = string
    default = "dev"
  }
-variable "my_profile" {
-  default = "js-dpp1"
+# variable "my_profile" {
+#   default = "js-dpp1"
   
-}
+# }
 
 variable "my_region" {
   type    = string

@@ -1,62 +1,38 @@
-name: "Terraform Deployment"
-on:
-  workflow_dispatch:
-  push:
-    paths:
-      - '*/**'
-  pull_request:
-    branches: [ main ]
-defaults:
-  run:
-    shell: bash
+name: Terraform Apply
+on: [push]
 jobs:
-  terraform:
-    name:   ${{matrix.runner}} - ${{ matrix.environment }}
-    runs-on: [ '${{ matrix.runner }}']
-    strategy:
-      max-parallel: 1
-      matrix:
-         include:
-           - environment: dev
-             runner: ubuntu-latest
-    env:
-         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         AWS_DEFAULT_REGION: eu-west-1
-    steps:
-      - uses: actions/checkout@v2
-      - uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_wrapper: false
-      - name: Terraform Init
-        id: init
-        run: |
-           rm -rf .terraform
-           terraform init -backend-config=${{ matrix.environment }}/backend.tfvars -upgrade=true -no-color -input=false
-      - name: Terraform Plan
-        id: plan
-        run:
-          terraform plan -input=false -var-file=${{ matrix.environment }}/variables.tf
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        id: apply
-        run: terraform apply -auto-approve -input=false -var-file=${{ matrix.environment }}/variables.tf
-      - name: Terraform destroy
-        if: github.ref == 'refs/heads/destroy'
-        id: destroy
-        run: terraform destroy -auto-approve -input=false -var-file=${{ matrix.environment }}/variables.tf
-  comment:
+  terraform_apply:
     runs-on: ubuntu-latest
-    needs: terraform
-    if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
-
+    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
+    - name: Install Terraform
+      env:
+            TERRAFORM_VERSION: "1.2.4"
+      run: |
+        tf_version=$TERRAFORM_VERSION
+        wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
+        unzip terraform_"$tf_version"_linux_amd64.zip
+        sudo mv terraform /usr/local/bin/
+    - name: Verify Terraform version
+      run: terraform --version
+    - name: Terraform init 
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        rm -rf .terraform 
+        terraform init -backend=true \-backend-config="bucket=dpp-dev-raw-src-rdw" \-backend-config="key=C3/dev/blackberry_pull_request/terraform.tfstate" \-backend-config="region=eu-west-1" 
+      #terraform init -backend-config="access_key=ASIAYMLGKE27LG6MQ3WT" -backend-config="secret_key=vhNdGN5dY3gIXZhDtH8xedZbhXGzCzt3nIfTRsWy" -backend-config="region=eu-west-1"
+      #terraform init -input=false
+    - name: Terraform validation
+      run: terraform validate
+    - name: Terraform Plan
+      run: terraform plan
+    - name: Terraform apply
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: terraform apply -auto-approve -input=false
