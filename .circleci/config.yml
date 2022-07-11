@@ -9,13 +9,13 @@ jobs:
       - checkout
       - run:
           name: terraform init & plan
+          environment:
+            AWS_ACCESS_KEY_ID: aws_key_id
+            AWS_SECRET_ACCESS_KEY:  aws_secret_access_key
           command: |
             pwd
             ls -la
             cd packages/blackberry_pull_request/
-          environment:
-            AWS_ACCESS_KEY_ID: aws_key_id
-            AWS_SECRET_ACCESS_KEY:  aws_secret_access_key
             terraform init -input=false
             terraform plan -out tfapply -var-file main.tf
       - persist_to_workspace:
