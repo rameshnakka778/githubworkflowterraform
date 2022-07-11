@@ -13,8 +13,8 @@ jobs:
             pwd
             ls -la
             cd packages/blackberry_pull_request/
-            set AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            set AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            echo 'export AWS_ACCESS_KEY_ID=$<<parameters.ACCOUNT>>_AWS_ACCESS_KEY_ID' >> $BASH_ENV
+            echo 'export AWS_SECRET_ACCESS_KEY=$<<parameters.ACCOUNT>>_AWS_SECRET_ACCESS_KEY' >> $BASH_ENV
             terraform init -input=false
             terraform plan -out tfapply -var-file main.tf
       - persist_to_workspace:
