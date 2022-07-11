@@ -11,6 +11,7 @@ jobs:
           name: terraform init & plan
           command: |
             pwd
+            ls -la
             terraform init -input=false
             terraform plan -out tfapply -var-file main.tf
       - persist_to_workspace:
