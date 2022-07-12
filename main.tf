@@ -22,7 +22,7 @@
 }
 
 module "blackberry" {
-    source = "../modules/blackberry_infra/glueresourcecreation"
+    source = "./modules/glueresourcecreation"
     create = var.create_connection
     name = var.conn_name
     url  = var.conn_url
@@ -37,18 +37,18 @@ module "blackberry" {
     criteria    = var.conn_criteria
 }
 module "blackberryglues3"{
-    source = "../modules/blackberry_infra/glues3"
+    source = "./modules/glues3"
     upload_obj_path = var.s3_upload_obj_path
     #bucket_name_obj_upload="js-s3-aws-glue-bb"
 }
 module "blackberrysecretmanager" {
-    source = "../modules/blackberry_infra/gluescretmanager"
+    source = "./modules/gluescretmanager"
     secret_manager_credentials = var.aws_secret_manager_credentials
 }
 module "blackberryterraform" {
     #source                      = "../modules/blackberry_infra"
     for_each = {for key, val in local.expanded_names: key => val}
-    source                      = "../modules/blackberry_infra/gluejobdeployment"
+    source                      = "./modules/gluejobdeployment"
     
     s3_file_path                = "scripts/${each.value.File_name}"
     bucket_name                 = each.value.Bucket_name
