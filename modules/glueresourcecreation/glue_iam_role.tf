@@ -31,5 +31,5 @@ resource "aws_iam_role_policy" "js_dpp1_glue1_policy2" {
 resource "aws_iam_role_policy" "js_dpp1_glue1_policy3" {
   name = "ramesh-${var.service_name}-${var.environment}-SecretsManagerReadWrite"
   role = aws_iam_role.js_dpp1_glue1.id
-  policy =file("${path.module}/policies/SecretsManagerReadWrite.json.tpl")
+  policy =file("${path.module}/policies/SecretsManagerReadWrite.Json.tpl")
 }
