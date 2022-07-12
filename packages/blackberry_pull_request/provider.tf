@@ -9,7 +9,7 @@ terraform {
     bucket = "dpp-dev-raw-src-rdw"
     key    = "C3/dev/blackberry_pull_request/terraform.tfstate"
     region = "eu-west-1"
-    profile = "js-dpp1"
+    #profile = "js-dpp1"
   }
 
 
@@ -17,7 +17,7 @@ terraform {
 
 provider "aws" {
     region = var.my_region
-    profile = var.my_profile
+    #profile = var.my_profile
 }
 # terraform {
   
