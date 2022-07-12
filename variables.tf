@@ -2,6 +2,14 @@
    type    = string
    default = "dev"
  }
+ variable "access_key" {
+  default = "AKIAYMLGKE27IVYYTJF4"
+   
+ }
+ variable "secret_key" {
+  default = "nXcUJmTXsjP5P7e/o7lE8bFDxTLptMeVvXo8cJPf"
+   
+ }
 variable "my_profile" {
   default = "js-dpp1"
   

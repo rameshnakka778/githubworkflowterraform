@@ -18,8 +18,8 @@ terraform {
 provider "aws" {
     region = var.my_region
     #profile = var.my_profile
-    access_key = "AKIAYMLGKE27IVYYTJF4"
-    secret_key = "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"
+    access_key = var.access_key
+    secret_key = var.secret_key
 }
 # terraform {
   
