@@ -29,6 +29,7 @@ jobs:
     - name: Terraform validation
       run: terraform validate
     - name: Terraform Plan
+          cd packages/blackberry_pull_request/environments
       run: terraform plan
     - name: Terraform apply
       env:
