@@ -100,7 +100,7 @@ variable "application_source_branch" {
 # }
 
 variable "s3_upload_obj_path" {
-  default = "./modules/blackberry_infra/glues3/wheelfiles/"
+  default = "./modules/glues3/wheelfiles/"
 }
 
 variable "s3_bucket_name_obj_upload" {
